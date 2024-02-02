@@ -1,0 +1,143 @@
+// models a triangular version of peg solitaire (cf. https://en.wikipedia.org/wiki/Peg_solitaire, version 6 in https://en.wikipedia.org/wiki/File:Peg_Solitaire_game_board_shapes.svg)
+
+// The sbar property was generated with the following code:
+// for x in 0..5 {
+//         for y in 0..5 {
+//             if x <= y {
+//                 if x >= 2 {
+//                     println!("& !(p{}{}&p{}{}&!p{}{})", y, x, y, x - 1, y, x - 2);
+//                 }
+//                 if x <= y - 2 {
+//                     println!("& !(p{}{}&p{}{}&!p{}{})", y, x, y, x + 1, y, x + 2);
+//                 }
+//                 if y >= x + 2 {
+//                     println!("& !(p{}{}&p{}{}&!p{}{})", y, x, y - 1, x, y - 2, x);
+//                 }
+//                 if y <= 2 {
+//                     println!("& !(p{}{}&p{}{}&!p{}{})", y, x, y + 1, x, y + 2, x);
+//                 }
+//                 if y >= 2 && x >= 2 {
+//                     println!("& !(p{}{}&p{}{}&!p{}{})", y, x, y - 1, x - 1, y - 2, x - 2);
+//                 }
+//                 if y <= 2 {
+//                     println!("& !(p{}{}&p{}{}&!p{}{})", y, x, y + 1, x + 1, y + 2, x + 2);
+//                 }
+//             }
+//         }
+//     }
+
+mdp
+label "sbar" = count>=2 & !(p00&p10&!p20)
+                & !(p00&p11&!p22)
+                & !(p10&p20&!p30)
+                & !(p10&p21&!p32)
+                & !(p20&p21&!p22)
+                & !(p20&p10&!p00)
+                & !(p20&p30&!p40)
+                & !(p20&p31&!p42)
+                & !(p30&p31&!p32)
+                & !(p30&p20&!p10)
+                & !(p40&p41&!p42)
+                & !(p40&p30&!p20)
+                & !(p11&p21&!p31)
+                & !(p11&p22&!p33)
+                & !(p21&p31&!p41)
+                & !(p21&p32&!p43)
+                & !(p31&p32&!p33)
+                & !(p31&p21&!p11)
+                & !(p41&p42&!p43)
+                & !(p41&p31&!p21)
+                & !(p22&p21&!p20)
+                & !(p22&p32&!p42)
+                & !(p22&p11&!p00)
+                & !(p22&p33&!p44)
+                & !(p32&p31&!p30)
+                & !(p32&p21&!p10)
+                & !(p42&p41&!p40)
+                & !(p42&p43&!p44)
+                & !(p42&p32&!p22)
+                & !(p42&p31&!p20)
+                & !(p33&p32&!p31)
+                & !(p33&p22&!p11)
+                & !(p43&p42&!p41)
+                & !(p43&p32&!p21)
+                & !(p44&p43&!p42)
+                & !(p44&p33&!p22);
+
+// label "sbar" = p00 & p40 & p42 & p44 & count = 4;
+formula count = (p00?1:0)
+                + (p10?1:0) + (p11?1:0)
+                + (p20?1:0) + (p21?1:0) + (p22?1:0)
+                + (p30?1:0) + (p31?1:0) + (p32?1:0) + (p33?1:0)
+                + (p40?1:0) + (p41?1:0) + (p42?1:0) + (p43?1:0) + (p44?1:0);
+
+module board
+    p00: bool init false;
+    p10: bool init true;
+    p11: bool init true;
+    p20: bool init true;
+    p21: bool init true;
+    p22: bool init true;
+    p30: bool init true;
+    p31: bool init true;
+    p32: bool init true;
+    p33: bool init true;
+    p40: bool init true;
+    p41: bool init true;
+    p42: bool init true;
+    p43: bool init true;
+    p44: bool init true;
+
+    [Move] p00 & p10 & !p20 -> (p00' = false) & (p10' = false) & (p20' = true);
+    [Move] p00 & p11 & !p22 -> (p00' = false) & (p11' = false) & (p22' = true);
+
+    [Move] p10 & p20 & !p30 -> (p10' = false) & (p20' = false) & (p30' = true);
+    [Move] p10 & p21 & !p32 -> (p10' = false) & (p21' = false) & (p32' = true);
+
+    [Move] p11 & p21 & !p31 -> (p11' = false) & (p21' = false) & (p31' = true);
+    [Move] p11 & p22 & !p33 -> (p11' = false) & (p22' = false) & (p33' = true);
+
+    [Move] p20 & p10 & !p00 -> (p20' = false) & (p10' = false) & (p00' = true);
+    [Move] p20 & p21 & !p22 -> (p20' = false) & (p21' = false) & (p22' = true);
+    [Move] p20 & p31 & !p42 -> (p20' = false) & (p31' = false) & (p42' = true);
+    [Move] p20 & p30 & !p40 -> (p20' = false) & (p30' = false) & (p40' = true);
+
+    [Move] p21 & p31 & !p41 -> (p21' = false) & (p31' = false) & (p41' = true);
+    [Move] p21 & p32 & !p43 -> (p21' = false) & (p32' = false) & (p43' = true);
+
+    [Move] p22 & p21 & !p20 -> (p22' = false) & (p21' = false) & (p20' = true);
+    [Move] p22 & p32 & !p42 -> (p22' = false) & (p32' = false) & (p42' = true);
+    [Move] p22 & p33 & !p44 -> (p22' = false) & (p33' = false) & (p44' = true);
+    [Move] p22 & p11 & !p00 -> (p22' = false) & (p11' = false) & (p00' = true);
+
+    [Move] p30 & p20 & !p10 -> (p30' = false) & (p20' = false) & (p10' = true);
+    [Move] p30 & p31 & !p32 -> (p30' = false) & (p31' = false) & (p32' = true);
+
+    [Move] p31 & p21 & !p11 -> (p31' = false) & (p21' = false) & (p11' = true);
+    [Move] p31 & p32 & !p33 -> (p31' = false) & (p32' = false) & (p33' = true);
+
+    [Move] p32 & p21 & !p10 -> (p32' = false) & (p21' = false) & (p10' = true);
+    [Move] p32 & p31 & !p30 -> (p32' = false) & (p31' = false) & (p30' = true);
+
+    [Move] p33 & p22 & !p11 -> (p33' = false) & (p22' = false) & (p11' = true);
+    [Move] p33 & p32 & !p31 -> (p33' = false) & (p32' = false) & (p31' = true);
+
+    [Move] p40 & p30 & !p20 -> (p40' = false) & (p30' = false) & (p20' = true);
+    [Move] p40 & p41 & !p42 -> (p40' = false) & (p41' = false) & (p42' = true);
+
+    [Move] p41 & p31 & !p21 -> (p41' = false) & (p31' = false) & (p21' = true);
+    [Move] p41 & p42 & !p43 -> (p41' = false) & (p42' = false) & (p43' = true);
+
+    [Move] p42 & p41 & !p40 -> (p42' = false) & (p41' = false) & (p40' = true);
+    [Move] p42 & p31 & !p20 -> (p42' = false) & (p31' = false) & (p20' = true);
+    [Move] p42 & p32 & !p22 -> (p42' = false) & (p32' = false) & (p22' = true);
+    [Move] p42 & p43 & !p44 -> (p42' = false) & (p43' = false) & (p44' = true);
+
+    [Move] p43 & p42 & !p41 -> (p43' = false) & (p42' = false) & (p41' = true);
+    [Move] p43 & p32 & !p21 -> (p43' = false) & (p32' = false) & (p21' = true);
+
+    [Move] p44 & p43 & !p42 -> (p44' = false) & (p43' = false) & (p42' = true);
+    [Move] p44 & p33 & !p22 -> (p44' = false) & (p33' = false) & (p22' = true);
+
+    [Done] count=1 -> true;
+endmodule

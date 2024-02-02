@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content=''>
+    <title></title>
+</head>
+<body>
+<h1 id="reproducing-the-results-from-the-paper">Reproducing the results
+from the paper</h1>
+<p>This list contains instructions to reproduce all experiments conduced
+in the paper. It assumes that you have installed the tool. Otherwise,
+see the instructions at <a href="../readme.html">../readme.html</a>.</p>
+<h2 id="general-notes">General notes</h2>
+<p>Navigate to the root directory of the tool so that the binary is
+located at <code>target/release/bw-responsibility</code>.</p>
+<p>You can perform all experiments either with <a
+href="https://www.prismmodelchecker.org/">PRISM</a> or without it. PRISM
+is only used to preprocess the transition system and generate the
+counterexample. If you do not have PRISM installed, append
+<code>--no-prism</code> to every command you execute. The tool will then
+use pre-processed transition systems and manually specified
+counterexamples instead. The results will be the same in either
+case.</p>
+<h2 id="reproducibility-and-randomness">Reproducibility and
+randomness</h2>
+<p>Several benchmarks use a stochastic algorithm. In these cases, the
+tool is usually run for t seconds and as many samples as possible are
+performed. You can run the same benchmarks, but due to different
+hardware and different random seeds, the results might be different.</p>
+<p>Therefore, we also provide a reproducible version of each benchmark.
+This contains a fixed seed and the number of samples that our machine
+was able to perform in the given time. The result should thus also match
+our results exactly. However, the runtime may differ and not match the
+runtime given in the paper.</p>
+<p>We have also only performed limited testing on other hardware. It is
+possible that the randomness is not reproduced exactly if other
+platforms provide different implementations of randomness.</p>
+<h2 id="reproducing-the-results">Reproducing the results</h2>
+<p>To reproduce the train example from Figure 1 and Table 1, see <a
+href="train_intro/readme.html">train_intro/readme.html</a>.</p>
+<p>To reproduce the Peg Solitaire analysis, see <a
+href="peg_solitaire/readme.html">peg_solitaire/readme.html</a>.</p>
+<p>To reproduce the analysis of the misrouted train in Dresden, see <a
+href="dresden_misrouted_train/readme.html">dresden_misrouted_train/readme.html</a>.</p>
+<p>To reproduce Table 2, see <a
+href="stochastic_benchmarking/readme.html">stochastic_benchmarking/readme.html</a>.
+Note that reproducing the entire table can take several hours or up to a
+day, depending on your hardware.</p>
+<p>To reproduce the introductory example for state grouping, see <a
+href="train_grouped/readme.html">train_grouped/readme.html</a>.</p>
+<p>To reproduce the dining philosophers example for state grouping, see
+[dining_philosophers]</p>
+<h2 id="peg-solitaire">Peg Solitaire</h2>
+<h2 id="misrouted-train-in-dresden">Misrouted train in Dresden</h2>
+<h2 id="stochastic-benchmarks">Stochastic benchmarks</h2>
+<h2 id="dining-philosophers">Dining philosophers</h2>
+<h2 id="brp">BRP</h2>
+</body>
+</html>

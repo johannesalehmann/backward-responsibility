@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content=''>
+    <title></title>
+</head>
+<body>
+<h1 id="dresden-central-station">Dresden Central Station</h1>
+<p>To compute responsibilities for the train station, run:</p>
+<pre><code>./target/release/bw-responsibility --prism-model experiments/dresden_misrouted_train/dresden_railways.prism -c experiments/dresden_misrouted_train/dresden_railways.ce -b &quot;sbar&quot;</code></pre>
+<p>You should get the following responsibilities:</p>
+<table>
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(t=35)</td>
+<td>0.75000000</td>
+</tr>
+<tr class="even">
+<td>(t=36)</td>
+<td>0.08333333</td>
+</tr>
+<tr class="odd">
+<td>(t=37)</td>
+<td>0.08333333</td>
+</tr>
+<tr class="even">
+<td>(t=42)</td>
+<td>0.08333333</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

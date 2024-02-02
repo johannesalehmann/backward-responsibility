@@ -1,0 +1,78 @@
+mdp
+
+label "sbar" = (t=2);
+
+module tester
+    t: [0..2];
+    // 0 send file
+    // 1 receive file
+    // 2 error
+
+    [SendFile] (t = 0) -> (t' = 1);
+    [SendFile] (t = 1) -> (t' = 2);
+    [ReceiveFile] (t = 0) -> (t' = 2);
+    [ReceiveFile] (t = 1) -> (t' = 0);
+    [] (t = 2) -> (t' = 2);
+endmodule
+
+module sender
+    next_bit: [0..1];
+    s: [0..2];
+    // 0 idle
+    // 1 transmit
+    // 2 await ack or retransmit
+
+    [] (s=0) -> (s'=0);
+    [SendFile] (s=0) -> (s'=1);
+    [SendSR] (s=1) -> (s'=2);
+    [ReceiveRS] (s=2 & next_bit = rs_message) -> (s'=0) & (next_bit' = 1 - next_bit);
+    [ReceiveRS] (s=2 & next_bit != rs_message) -> (s'=2);
+    [SendSR] (s=2) -> (s'=2);
+endmodule
+
+module receiver
+    expected_bit: [0..1] init 1;
+    r: [0..2];
+
+    // 0 wait_for_message
+    // 1 notify_message
+    // 2 send_ack
+
+    [] (r = 0) -> (r' = 0);
+    // Error: We should only go to r=1 if the message bit differs from the one we previously received
+    [SendAck] (r = 0) -> (r' = 0);
+    [ReceiveSR] (r = 0) -> (r' = 1) & (expected_bit' = 1 - expected_bit);
+    // The following would be correct:
+    // [ReceiveSR] (r = 0 & sr_message = expected_bit) -> (r' = 1) & (expected_bit' = 1 - expected_bit);
+    // [ReceiveSR] (r = 0 & sr_message != expected_bit) -> (r' = 2);
+    [ReceiveFile] (r = 1) -> (r' = 2);
+    [SendAck] (r = 2) -> (r' = 0);
+endmodule
+
+module sr_channel
+    sr_message: [0..1];
+    sr_state: [0..2];
+    // 0 accept message
+    // 1 transmit or lose message
+    // 2 deliver message
+
+    [] (sr_state = 0) -> (sr_state' = 0);
+    [SendSR] (sr_state = 0) -> (sr_state' = 1) & (sr_message' = next_bit);
+    [] (sr_state = 1) -> (sr_state' = 2);
+    [] (sr_state = 1) -> (sr_state' = 0);
+    [ReceiveSR] (sr_state = 2) -> (sr_state' = 0);
+endmodule
+
+module rs_channel
+    rs_message: [0..1];
+    rs_state: [0..2];
+    // 0 accept message
+    // 1 transmit or lose message
+    // 2 deliver message
+
+    [] (rs_state = 0) -> (rs_state' = 0);
+    [SendAck] (rs_state = 0) -> (rs_state' = 1) & (rs_message' = expected_bit);
+    [] (rs_state = 1) -> (rs_state' = 2);
+    [] (rs_state = 1) -> (rs_state' = 0);
+    [ReceiveRS] (rs_state = 2) -> (rs_state' = 0);
+endmodule

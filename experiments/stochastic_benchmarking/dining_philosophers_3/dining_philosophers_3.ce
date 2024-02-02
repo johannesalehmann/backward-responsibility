@@ -1,0 +1,4 @@
+(p1l=false, p1r=false, e1=false, p2l=false, p2r=false, e2=false, p3l=false, p3r=false, e3=false, f1=true, f2=true, f3=true)
+(p1l=false, p1r=false, e1=false, p2l=false, p2r=false, e2=false, p3l=false, p3r=true, e3=false, f1=false, f2=true, f3=true)
+(p1l=false, p1r=false, e1=false, p2l=false, p2r=true, e2=false, p3l=false, p3r=true, e3=false, f1=false, f2=true, f3=false)
+(p1l=false, p1r=true, e1=false, p2l=false, p2r=true, e2=false, p3l=false, p3r=true, e3=false, f1=false, f2=false, f3=false)

@@ -1,0 +1,25 @@
+[package]
+name = "bw-responsibility"
+version = "1.0.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+# [profile.dev]
+# opt-level = 3
+
+[profile.dev.package."*"]
+opt-level = 3
+
+
+[dependencies]
+rayon = "1.7.0" # Multithreading
+indicatif = "0.17.3" # For progress bars
+clap = "4.3.0" # Command-line parsing
+set-trie = "0.2.3" # Fast subset queries
+colored = "2.0.0" # Colored output
+fastrand = "2.0.0" # Fast random generator
+num-bigint = "0.4.3" # To handle arbitrarily large integers
+num-traits = "0.2.15" # Convert bigints to primitive integers
+num-rational = "0.4.1" # Rational numbers
+comfy-table = "7.0.1" # Print tables

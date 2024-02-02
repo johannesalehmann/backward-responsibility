@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content=''>
+    <title>BRP – grouped and individual</title>
+</head>
+<body>
+<h1 id="brp-grouped-and-individual">BRP – grouped and individual</h1>
+<p>You can reproduce the results from the “Example: BRP” in the “State
+grouping” subsection of the implementation as follows.</p>
+<p>To check that the stochastic algorithm does not produce significant
+results even after running for 60s, run</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/brp/benchmark_individual_reproducible -j8</code></pre>
+<p>This will take tens of minutes, depending on your machine. After
+that, you should be able to see that the standard deviation for 60s is
+in parentheses, indicating a non-significant result.</p>
+<p>To compare this with the grouped case, run</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/brp/benchmark_grouped_reproducible -j8</code></pre>
+<p>This should not take as long. You should see a standard deviation of
+0.0006 for t=1s.</p>
+</body>
+</html>

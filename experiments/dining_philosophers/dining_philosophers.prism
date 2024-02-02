@@ -1,0 +1,51 @@
+mdp
+
+label "sbar" = (f1!=0 & f2!=0 & f3!=0 & f4!=0 & !p1eat & !p2eat & !p3eat & !p4eat);
+
+formula p1eat = (f1=1 & f2=-1);
+formula p2eat = (f2=1 & f3=-1);
+formula p3eat = (f3=1 & f4=-1);
+formula p4eat = (f4=1 & f1=-1);
+
+label "p1" = turn=1;
+label "p2" = turn=2;
+label "p3" = turn=3;
+label "p4" = turn=4;
+
+module Scheduler
+    turn: [1..4] init 1;
+
+    [Step] turn < 4 -> (turn' = turn+1);
+    [Step] turn = 4 -> (turn' = 1);
+endmodule
+
+// Sitting order: f1-p1-f2-p2-...-f4-p4
+
+module Tables
+    // For every fork fi, fi=0 if it is on the table, fi=-1 if it is taken by the left philosopher and fi=1 if it is taken by the right philosopher
+    f1: [-1..1] init 0;
+    f2: [-1..1] init 0;
+    f3: [-1..1] init 0;
+    f4: [-1..1] init 0;
+    // f5: [-1..1] init 0;
+
+    [Step] (turn=1 & f1=0) -> (f1' = 1); // Take left fork
+    [Step] (turn=1 & f2=0) -> (f2' = -1); // Take right fork
+    [Step] (turn=1 & p1eat) -> (f1'=0) & (f2'=0); // Eat
+    [Step] (turn=1 & !p1eat) -> true; // Don't do anything
+
+    [Step] (turn=2 & f2=0) -> (f2' = 1); // Take left fork
+    [Step] (turn=2 & f3=0) -> (f3' = -1); // Take right fork
+    [Step] (turn=2 & p2eat) -> (f2'=0) & (f3'=0); // Eat
+    [Step] (turn=2 & !p2eat) -> true; // Don't do anything
+
+    [Step] (turn=3 & f3=0) -> (f3' = 1); // Take left fork
+    [Step] (turn=3 & f4=0) -> (f4' = -1); // Take right fork
+    [Step] (turn=3 & p3eat) -> (f3'=0) & (f4'=0); // Eat
+    [Step] (turn=3 & !p3eat) -> true; // Don't do anything
+
+    [Step] (turn=4 & f4=0) -> (f4' = 1); // Take left fork
+    [Step] (turn=4 & f1=0) -> (f1' = -1); // Take right fork
+    [Step] (turn=4 & p4eat) -> (f4'=0) & (f1'=0); // Eat
+    [Step] (turn=4 & !p4eat) -> true; // Don't do anything
+endmodule

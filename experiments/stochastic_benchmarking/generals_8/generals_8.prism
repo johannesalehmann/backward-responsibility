@@ -1,0 +1,30 @@
+mdp
+
+label "sbar" = damage > 0 & damage < 10 & g1 & g2 & g3 & g4 & g5 & g6 & g7 & g8;
+
+module General1
+    g1: bool init false;
+    [G1Attack] !g1 -> (g1' = true);
+    [] !g1 -> (g1' = true);
+    [] g1 -> true;
+endmodule
+
+module General2 = General1 [g1=g2, G1Attack=G2Attack] endmodule
+module General3 = General1 [g1=g3, G1Attack=G3Attack] endmodule
+module General4 = General1 [g1=g4, G1Attack=G4Attack] endmodule
+module General5 = General1 [g1=g5, G1Attack=G5Attack] endmodule
+module General6 = General1 [g1=g6, G1Attack=G6Attack] endmodule
+module General7 = General1 [g1=g7, G1Attack=G7Attack] endmodule
+module General8 = General1 [g1=g8, G1Attack=G8Attack] endmodule
+
+module Castle
+    damage: [0..10] init 0;
+    [G1Attack] damage < 10 -> (damage' = damage + 1);
+    [G2Attack] damage < 10 -> (damage' = damage + 1);
+    [G3Attack] damage < 10 -> (damage' = damage + 1);
+    [G4Attack] damage < 10 -> (damage' = damage + 1);
+    [G5Attack] damage < 10 -> (damage' = damage + 1);
+    [G6Attack] damage < 10 -> (damage' = damage + 1);
+    [G7Attack] damage < 10 -> (damage' = damage + 1);
+    [G8Attack] damage < 10 -> (damage' = damage + 1);
+endmodule

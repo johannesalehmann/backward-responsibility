@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content=''>
+    <title>Peg Solitaire</title>
+</head>
+<body>
+<h1 id="peg-solitaire">Peg Solitaire</h1>
+<p>To analyse optimistic responsibility, run</p>
+<pre><code>./target/release/bw-responsibility --prism-model experiments/peg_solitaire/peg_solitaire.prism -c &quot;experiments/peg_solitaire/peg_solitaire.ce&quot; -b &quot;sbar&quot; -v o</code></pre>
+<p>You should get the following responsibilities.</p>
+<table>
+<colgroup>
+<col style="width: 91%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(p00=false, p10=false, p11=false, p20=true, p21=false, p22=true,
+p30=true, p31=true, p32=true, p33=true, p40=true, p41=true, p42=true,
+p43=true, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+<tr class="even">
+<td>(p00=false, p10=false, p11=false, p20=true, p21=true, p22=false,
+p30=true, p31=false, p32=false, p33=true, p40=true, p41=false,
+p42=false, p43=true, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+<tr class="odd">
+<td>(p00=false, p10=false, p11=false, p20=true, p21=true, p22=false,
+p30=true, p31=false, p32=false, p33=true, p40=true, p41=true, p42=true,
+p43=false, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+<tr class="even">
+<td>(p00=false, p10=false, p11=false, p20=true, p21=true, p22=true,
+p30=true, p31=false, p32=true, p33=true, p40=true, p41=false, p42=true,
+p43=true, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+<tr class="odd">
+<td>(p00=false, p10=false, p11=false, p20=true, p21=true, p22=true,
+p30=true, p31=false, p32=true, p33=true, p40=true, p41=true, p42=false,
+p43=false, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+<tr class="even">
+<td>(p00=false, p10=true, p11=true, p20=true, p21=true, p22=true,
+p30=true, p31=true, p32=true, p33=true, p40=true, p41=true, p42=true,
+p43=true, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+<tr class="odd">
+<td>(p00=true, p10=false, p11=true, p20=false, p21=true, p22=true,
+p30=true, p31=true, p32=true, p33=true, p40=true, p41=true, p42=true,
+p43=true, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+<tr class="even">
+<td>(p00=true, p10=false, p11=true, p20=true, p21=false, p22=false,
+p30=true, p31=true, p32=true, p33=true, p40=true, p41=true, p42=true,
+p43=true, p44=true)</td>
+<td>0.12500000</td>
+</tr>
+</tbody>
+</table>
+<p>All states up to the one in Figure 2b have responsibility 0.125,
+whereas all following states don’t have positive responsibility.</p>
+<p>Note that the numbering scheme differs slightly from the paper, with
+pij corresponding to the jth hole in the ith row:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Internal Name</th>
+<th>Name in Paper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>p00</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>p10</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>p11</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>p20</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>p21</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>p22</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>p30</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>p31</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>p32</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>p33</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>p40</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>p41</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<td>p42</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td>p43</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td>p44</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

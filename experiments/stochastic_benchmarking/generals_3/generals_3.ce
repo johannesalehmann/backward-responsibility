@@ -1,0 +1,4 @@
+(g1=false, g2=false, g3=false, damage=0)
+(g1=false, g2=false, g3=true, damage=0)
+(g1=false, g2=true, g3=true, damage=0)
+(g1=true, g2=true, g3=true, damage=1)

@@ -1,0 +1,20 @@
+mdp
+
+label "sbar" = damage > 0 & damage < 3 & g1 & g2 & g3;
+
+module General1
+    g1: bool init false;
+    [G1Attack] !g1 -> (g1' = true);
+    [] !g1 -> (g1' = true);
+    [] g1 -> true;
+endmodule
+
+module General2 = General1 [g1=g2, G1Attack=G2Attack] endmodule
+module General3 = General1 [g1=g3, G1Attack=G3Attack] endmodule
+
+module Castle
+    damage: [0..10] init 0;
+    [G1Attack] damage < 10 -> (damage' = damage + 1);
+    [G2Attack] damage < 10 -> (damage' = damage + 1);
+    [G3Attack] damage < 10 -> (damage' = damage + 1);
+endmodule

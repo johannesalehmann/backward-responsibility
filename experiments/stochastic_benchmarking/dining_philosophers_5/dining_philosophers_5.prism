@@ -1,0 +1,45 @@
+mdp
+
+// N = 5
+// n philosophers P1 ... PN
+// n forks F1 ... FN
+// Seating order: F1 - P1 - F2 - ... - FN - PN
+
+label "sbar" = !f1 & !f2 & !f3 & !f4 & !f5 & !(p1l & p1r) & !(p2l & p2r) & !(p3l & p3r) & !(p4l & p4r) & !(p5l & p5r);
+
+label "p1" = p1l | p1r;
+label "p2" = p2l | p2r;
+label "p3" = p3l | p3r;
+label "p4" = p4l | p4r;
+label "p5" = p5l | p5r;
+
+module P1
+    p1l: bool init false;
+    p1r: bool init false;
+
+    e1: bool init false;
+
+    [TakeF1P1] !p1l -> (p1l' = true);
+    [TakeF2P1] !p1r -> (p1r' = true);
+    [] p1l & p1r & !e1 -> (e1' = true);
+    [ReturnP1] p1l & p1r & e1 -> (p1l' = false) & (p1r' = false) & (e1' = false);
+endmodule
+
+module P2 = P1 [p1l=p2l, p1r=p2r, e1=e2, TakeF1P1=TakeF2P2, TakeF2P1=TakeF3P2, ReturnP1=ReturnP2] endmodule
+module P3 = P1 [p1l=p3l, p1r=p3r, e1=e3, TakeF1P1=TakeF3P3, TakeF2P1=TakeF4P3, ReturnP1=ReturnP3] endmodule
+module P4 = P1 [p1l=p4l, p1r=p4r, e1=e4, TakeF1P1=TakeF4P4, TakeF2P1=TakeF5P4, ReturnP1=ReturnP4] endmodule
+module P5 = P1 [p1l=p5l, p1r=p5r, e1=e5, TakeF1P1=TakeF5P5, TakeF2P1=TakeF1P5, ReturnP1=ReturnP5] endmodule
+
+module F1
+    f1: bool init true;
+
+    [TakeF1P1] f1 -> (f1' = false);
+    [TakeF1P5] f1 -> (f1' = false);
+    [ReturnP1] !f1 -> (f1' = true);
+    [ReturnP5] !f1 -> (f1' = true);
+endmodule
+
+module F2 = F1 [f1=f2, TakeF1P1=TakeF2P2, TakeF1P5=TakeF2P1, ReturnP1=ReturnP2, ReturnP5=ReturnP1] endmodule
+module F3 = F1 [f1=f3, TakeF1P1=TakeF3P3, TakeF1P5=TakeF3P2, ReturnP1=ReturnP3, ReturnP5=ReturnP2] endmodule
+module F4 = F1 [f1=f4, TakeF1P1=TakeF4P4, TakeF1P5=TakeF4P3, ReturnP1=ReturnP4, ReturnP5=ReturnP3] endmodule
+module F5 = F1 [f1=f5, TakeF1P1=TakeF5P5, TakeF1P5=TakeF5P4, ReturnP1=ReturnP5, ReturnP5=ReturnP4] endmodule

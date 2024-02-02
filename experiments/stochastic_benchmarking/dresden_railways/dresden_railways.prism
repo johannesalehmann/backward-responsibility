@@ -1,0 +1,204 @@
+mdp
+
+formula reached_prague = (t=72 | t=73 | t=74 | t=75);
+formula reached_platform = (t=50 | t=51 | t=53 | t=54 | t=55 | t=56 | t=57 | t=58 | t=59 | t=60 | t=61 | t=62 | t=63);
+formula reached_dead_end = (t=69 | t=70 | t=71);
+formula reached_bay_platform = (t=54 | t=55 | t=56 | t=57 | t=58 | t=59 | t=60);
+
+// This can only be avoided if a train first visits a specific platform and then continues on to prague.
+label "sbar" = reached_dead_end | reached_bay_platform | (reached_prague & !visited_platform);
+// To specify the platform(s), add the action "Platform" to the transition corresponding to the given platform:
+// Track 1 -> 63
+// Track 2 -> 62
+// Track 3 -> 61
+// Track 6 -> 60
+// Track 9 -> 59
+// Track 10 -> 58
+// Track 11 -> 57
+// Track 12 -> 56
+// Track 13 -> 55
+// Track 14 -> 54
+// Track 17 -> 53
+// Track 18 -> 51
+// Track 19 -> 50
+
+// For dead-end platforms, use the following formula:
+//label "sbar" = reached_dead_end | reached_prague | (reached_bay_platform & !visited_platform);
+
+
+module hbf
+
+    t: [1..77] init 7; // Set to 2, 1 or 4 for a larger model (because more switches are reachable).
+    // initial values from Dresden-Neustadt:
+    // 9, 10, 7, 2, 1, 4
+    // initial values from Chemnitz:
+    // 23, 33, 34
+    // final values to Prague:
+    // 72, 73, 74, 75
+
+    [] (t=1) -> (t'=2);
+    [] (t=1) -> (t'=5);
+
+    [] (t=2) -> (t'=7);
+    [] (t=2) -> (t'=8);
+
+    [] (t=4) -> (t'=5);
+    [] (t=4) -> (t'=23);
+
+    [] (t=5) -> (t'=8);
+    [] (t=5) -> (t'=25);
+
+    [] (t=7) -> (t'=12);
+    [] (t=7) -> (t'=22);
+
+    [] (t=8) -> (t'=38);
+    [] (t=8) -> (t'=21);
+
+    [] (t=9) -> (t'=50);
+    [] (t=9) -> (t'=10);
+
+    [] (t=10) -> (t'=50);
+    [] (t=10) -> (t'=51);
+
+    [] (t=11) -> (t'=52);
+    [] (t=11) -> (t'=53);
+
+    [] (t=12) -> (t'=10);
+    [] (t=12) -> (t'=11);
+
+    [] (t=13) -> (t'=15);
+    [] (t=13) -> (t'=66);
+
+    [] (t=14) -> (t'=66);
+    [] (t=14) -> (t'=16);
+
+    [] (t=15) -> (t'=72);
+    [] (t=15) -> (t'=16);
+
+    [] (t=16) -> (t'=19);
+    [] (t=16) -> (t'=18);
+
+    [] (t=17) -> (t'=18);
+    [] (t=17) -> (t'=75);
+
+    [] (t=18) -> (t'=19);
+    [] (t=18) -> (t'=20);
+
+    [] (t=19) -> (t'=72);
+    [] (t=19) -> (t'=73);
+
+    [] (t=20) -> (t'=74);
+    [] (t=20) -> (t'=75);
+
+    [] (t=21) -> (t'=22);
+    [] (t=21) -> (t'=26);
+
+    [] (t=22) -> (t'=49);
+    [] (t=22) -> (t'=24);
+
+    [] (t=23) -> (t'=25);
+    [] (t=23) -> (t'=65);
+
+    [] (t=24) -> (t'=61);
+    [] (t=24) -> (t'=26);
+
+    [] (t=25) -> (t'=26);
+    [] (t=25) -> (t'=28);
+
+    [] (t=26) -> (t'=61);
+    [] (t=26) -> (t'=27);
+
+    [] (t=27) -> (t'=62);
+    [] (t=27) -> (t'=63);
+
+    [] (t=28) -> (t'=64);
+    [] (t=28) -> (t'=65);
+
+    [] (t=29) -> (t'=76);
+    [] (t=29) -> (t'=67);
+
+    [] (t=30) -> (t'=32);
+
+    [] (t=31) -> (t'=18);
+    [] (t=31) -> (t'=32);
+
+    [] (t=32) -> (t'=18);
+    [] (t=32) -> (t'=76);
+
+    [] (t=33) -> (t'=38);
+    [] (t=33) -> (t'=34);
+
+    [] (t=34) -> (t'=39);
+    [] (t=34) -> (t'=36);
+
+    [] (t=35) -> (t'=55);
+    [] (t=35) -> (t'=56);
+
+    [] (t=36) -> (t'=41);
+    [] (t=36) -> (t'=37);
+
+    [] (t=37) -> (t'=35);
+    [] (t=37) -> (t'=42);
+
+    [] (t=38) -> (t'=12);
+    [] (t=38) -> (t'=39);
+
+    [] (t=39) -> (t'=11);
+    [] (t=39) -> (t'=40);
+
+    [] (t=40) -> (t'=71);
+    [] (t=40) -> (t'=41);
+
+    [] (t=41) -> (t'=54);
+    [] (t=41) -> (t'=35);
+
+    [] (t=42) -> (t'=56);
+    [] (t=42) -> (t'=43);
+
+    [] (t=43) -> (t'=57);
+    [] (t=43) -> (t'=44);
+
+    [] (t=44) -> (t'=57);
+    [] (t=44) -> (t'=47);
+
+    [] (t=45) -> (t'=44);
+    [] (t=45) -> (t'=46);
+
+    [] (t=46) -> (t'=47);
+    [] (t=46) -> (t'=48);
+
+    [] (t=47) -> (t'=58);
+    [] (t=47) -> (t'=48);
+
+    [] (t=48) -> (t'=59);
+    [] (t=48) -> (t'=60);
+
+    [] (t=49) -> (t'=45);
+    [] (t=49) -> (t'=70);
+
+    [] (t=50) -> (t'=13);
+    [] (t=51) -> (t'=14);
+    [] (t=52) -> (t'=16);
+    [Platform] (t=53) -> (t'=18);
+
+    [] (t=61) -> (t'=31);
+    [] (t=62) -> (t'=30);
+    [] (t=63) -> (t'=29);
+    [] (t=64) -> (t'=76);
+    [] (t=65) -> (t'=17);
+
+    [] (t=67) -> (t'=76);
+    [] (t=67) -> (t'=68);
+
+    [] (t=68) -> (t'=69);
+    [] (t=68) -> (t'=76);
+
+    [] (t=76) -> (t'=18);
+    [] (t=76) -> (t'=17);
+endmodule
+
+module checker
+    visited_platform: bool init false;
+
+    [Platform] true -> (visited_platform' = true);
+endmodule

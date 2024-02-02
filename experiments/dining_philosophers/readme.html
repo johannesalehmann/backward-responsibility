@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content=''>
+    <title>Grouped Dining Philosophers</title>
+</head>
+<body>
+<h1 id="grouped-dining-philosophers">Grouped Dining Philosophers</h1>
+<p>To compute the grouped responsibility, run:</p>
+<pre><code>./target/release/bw-responsibility --prism-model experiments/dining_philosophers/dining_philosophers.prism -c experiments/dining_philosophers/dining_philosophers.ce -b &quot;sbar&quot; -g</code></pre>
+<p>You should get the following responsibilities.</p>
+<table>
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>p1</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td>p2</td>
+<td>0.25</td>
+</tr>
+<tr class="odd">
+<td>p3</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td>p4</td>
+<td>0.25</td>
+</tr>
+</tbody>
+</table>
+<p>The runtime should be in the order of 10^-3 seconds.</p>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="date" content=''>
+    <title>Stochastic Benchmarks</title>
+</head>
+<body>
+<h1 id="stochastic-benchmarks">Stochastic Benchmarks</h1>
+<p>To reproduce Table 2, you can run the following command:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/benchmarks_reproducible -j8</code></pre>
+<p><em>Note that this will take a long time</em> (about 30-60 minutes
+per row on my machine). This will perform the same number of samples and
+use the same seed as the benchmark in the paper, so the result should be
+a perfect reproduction of the table in the paper. We have however not
+checked whether this produces reproducible results on different hardware
+configurations, (e.g. a different number of cores or a different
+architecture/operating system).</p>
+<p>If you instead want to see how many samples your machine is able to
+make in the same time, run the following</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/benchmarks</code></pre>
+<p>If you want to reproduce a single line from the benchmark, you can
+use one of the following commands:</p>
+<p><em>alternating_bit</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/alternating_bit/benchmark_reproducible -j8</code></pre>
+<p><em>brp, N=4, MAX=2</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/brp_N_4_MAX_2/benchmark_reproducible -j8</code></pre>
+<p><em>brp, N=16, MAX=3</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/brp_N_16_MAX_3/benchmark_reproducible -j8</code></pre>
+<p><em>crowds, TR=3, CS=5</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/crowds_TR_3_CS_5/benchmark_reproducible -j8</code></pre>
+<p><em>dining_philosophers, N=3</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/dining_philosophers_3/benchmark_reproducible -j8</code></pre>
+<p><em>dining_philosophers, N=5</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/dining_philosophers_5/benchmark_reproducible -j8</code></pre>
+<p><em>dresden_railways</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/dresden_railways/benchmark_reproducible -j8</code></pre>
+<p><em>generals, N=3</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/generals_3/benchmark_reproducible -j8</code></pre>
+<p><em>generals, N=5</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/generals_5/benchmark_reproducible -j8</code></pre>
+<p><em>generals, N=8</em>:</p>
+<pre><code>./target/release/bw-responsibility --benchmark experiments/stochastic_benchmarking/generals_8/benchmark_reproducible -j8</code></pre>
+</body>
+</html>

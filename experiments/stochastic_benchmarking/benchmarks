@@ -1,0 +1,13 @@
+20
+individual
+1.0 10.0 60.0
+alternating_bit/alternating_bit.prism sbar \texttt{alternating\_bit}
+brp_N_4_MAX_2/brp_N_4_MAX_2.prism sbar \texttt{brp}, $N = 4$, $\mathit{MAX} = 2$
+brp_N_16_MAX_3/brp_N_16_MAX_3.prism sbar \texttt{brp}, $N = 16$, $\mathit{MAX} = 3$
+crowds_TR_3_CS_5/crowds_TR_3_CS_5.prism sbar \texttt{crowds}, $\mathit{TR} = 3$, $\mathit{CS} = 5$
+dining_philosophers_3/dining_philosophers_3.prism sbar \texttt{dining\_philosophers}, $N=3$
+dining_philosophers_5/dining_philosophers_5.prism sbar \texttt{dining\_philosophers}, $N=5$
+dresden_railways/dresden_railways.prism sbar \texttt{dresden\_railways}
+generals_3/generals_3.prism sbar \texttt{generals}, $N=3$
+generals_5/generals_5.prism sbar \texttt{generals}, $N=5$
+generals_8/generals_8.prism sbar \texttt{generals}, $N=8$
